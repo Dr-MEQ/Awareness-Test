@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Awareness Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 2em auto;
+      padding: 1em;
+      background: #f9f9f9;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .question {
+      margin: 1.5em 0;
+    }
+    button {
+      margin-top: 1em;
+      padding: 0.5em 1em;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .result {
+      display: none;
+      margin-top: 2em;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>How Aware Are You?</h1>
+  <h2>Are you more aware than a guy who stared at an empty paper towel roll?</h2>
+  <form id="quiz">
+    <div class="question">
+      <p>1. You're handed an empty mug. You say:</p>
+      <label><input type="radio" name="q1" value="1" /> “Thanks!”</label><br>
+      <label><input type="radio" name="q1" value="2" /> “Where’s the coffee?”</label><br>
+      <label><input type="radio" name="q1" value="3" /> “Am I supposed to imagine the drink?”</label><br>
+      <label><input type="radio" name="q1" value="4" /> “This is metaphorical, isn't it?”</label>
+    </div>
+    <div class="question">
+      <p>2. You hear lyrics you’ve heard 1,000 times. Your reaction?</p>
+      <label><input type="radio" name="q2" value="1" /> “Wait… THAT’s what they were saying?”</label><br>
+      <label><input type="radio" name="q2" value="2" /> “Always knew it.”</label><br>
+      <label><input type="radio" name="q2" value="3" /> “Never really listened.”</label>
+    </div>
+    <div class="question">
+      <p>3. A lightbulb is out. When do you notice?</p>
+      <label><input type="radio" name="q3" value="1" /> When the room is dark</label><br>
+      <label><input type="radio" name="q3" value="2" /> When someone else says something</label><br>
+      <label><input type="radio" name="q3" value="3" /> Two weeks later</label>
+    </div>
+    <div class="question">
+      <p>4. You can’t find your glasses. You:</p>
+      <label><input type="radio" name="q4" value="1" /> Pat your head—they're there</label><br>
+      <label><input type="radio" name="q4" value="2" /> Panic and retrace your steps</label><br>
+      <label><input type="radio" name="q4" value="3" /> Accept blindness as fate</label>
+    </div>
+    <div class="question">
+      <p>5. You open the fridge and see no food. What next?</p>
+      <label><input type="radio" name="q5" value="1" /> Open it again, hoping for a miracle</label><br>
+      <label><input type="radio" name="q5" value="2" /> Remember the pantry exists</label><br>
+      <label><input type="radio" name="q5" value="3" /> Order takeout and blame capitalism</label>
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+  <div class="result" id="result"></div>
+
+  <script>
+    document.getElementById("quiz").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const values = ["q1", "q2", "q3", "q4", "q5"].map(q => {
+        const checked = document.querySelector(`input[name=${q}]:checked`);
+        return checked ? parseInt(checked.value) : 0;
+      });
+      const total = values.reduce((a, b) => a + b, 0);
+
+      let message = "";
+      if (total <= 6) {
+        message = "🧠 Hyperaware Legend – You spot things before they exist. Have you considered superhero work?";
+      } else if (total <= 10) {
+        message = "😎 Functionally Aware – You notice stuff… eventually. Still better than average.";
+      } else if (total <= 13) {
+        message = "🤷 Retroactive Realizer – You connect dots… after the puzzle's gone. Welcome to the club.";
+      } else {
+        message = "🧻 Paper Towel Prophet – You and I would get along just fine. Enlightenment comes… eventually.";
+      }
+
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = message;
+      resultBox.style.display = "block";
+    });
+  </script>
+</body>
+</html>
